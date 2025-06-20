@@ -5,25 +5,22 @@ import { revalidatePath } from "next/cache";
 const secretToken = process.env.REVALIDATE_SECRET;
 
 export async function POST(req: NextRequest) {
-  const body = await req.json();
-  const token = req.nextUrl.searchParams.get("token");
-
-  if (!token || token !== secretToken) {
-    return NextResponse.json({ message: "Invalid token" }, { status: 401 });
-  }
-
-  const { path } = body;
-
-  if (!path) {
-    return NextResponse.json({ message: "Missing path" }, { status: 400 });
-  }
-
   try {
+    const { path, token } = await req.json();
+
+    if (!token || token !== secretToken) {
+      return NextResponse.json({ message: "Invalid token" }, { status: 401 });
+    }
+
+    if (!path) {
+      return NextResponse.json({ message: "Missing path" }, { status: 400 });
+    }
+
     revalidatePath(path);
     return NextResponse.json({ revalidated: true, path });
   } catch (err) {
     return NextResponse.json(
-      { message: "Revalidation error", error: err },
+      { message: "Revalidation error", error: String(err) },
       { status: 500 }
     );
   }
