@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image"; // ✅ 追加
 
 export default function HeroSection() {
   return (
@@ -13,15 +14,17 @@ export default function HeroSection() {
     >
       {/* プロフィール画像 */}
       <motion.div
-        className="w-36 h-36 md:w-60 md:h-60 rounded-full overflow-hidden shadow-xl border-4 border-yellow-400 flex-shrink-0"
+        className="relative w-36 h-36 md:w-60 md:h-60 rounded-full overflow-hidden shadow-xl border-4 border-yellow-400 flex-shrink-0"
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.8 }}
       >
-        <img
+        <Image
           src="/images/zarli.jpg"
           alt="Zar Li"
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          priority
         />
       </motion.div>
 
