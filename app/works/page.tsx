@@ -1,4 +1,5 @@
 // app/works/page.tsx
+export const revalidate = 60;
 import WorksList from "@/components/WorksList";
 import { getAllWorks } from "@/lib/works";
 
