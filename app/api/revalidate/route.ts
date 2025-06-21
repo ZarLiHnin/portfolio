@@ -5,8 +5,8 @@ import { revalidatePath } from "next/cache";
 const secretToken = process.env.REVALIDATE_SECRET;
 
 type RevalidateRequestBody = {
-  token?: string;
   path?: string;
+  token?: string;
 };
 
 export async function POST(req: NextRequest) {
@@ -15,17 +15,16 @@ export async function POST(req: NextRequest) {
   const pathFromQuery = query.get("path");
 
   let body: RevalidateRequestBody = {};
+
   try {
-    const json = await req.json();
-    if (typeof json === "object" && json !== null) {
-      body = json;
-    }
+    // JSONパースして型付け
+    body = (await req.json()) as RevalidateRequestBody;
   } catch {
-    // JSON parsing failed, ignore
+    // 失敗した場合でも undefined で進める
   }
 
-  const token = body.token ?? tokenFromQuery;
-  const path = body.path ?? pathFromQuery;
+  const token = body.token || tokenFromQuery;
+  const path = body.path || pathFromQuery;
 
   if (!token || token !== secretToken) {
     return NextResponse.json({ message: "Invalid token" }, { status: 401 });
@@ -36,8 +35,21 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    revalidatePath(path);
-    return NextResponse.json({ revalidated: true, path });
+    // 必要に応じて複数ページを再生成
+    const pathsToRevalidate = new Set<string>([path]);
+
+    if (path === "/works") {
+      pathsToRevalidate.add("/");
+    }
+
+    for (const p of pathsToRevalidate) {
+      revalidatePath(p);
+    }
+
+    return NextResponse.json({
+      revalidated: true,
+      paths: Array.from(pathsToRevalidate),
+    });
   } catch (err) {
     return NextResponse.json(
       { message: "Revalidation error", error: String(err) },
