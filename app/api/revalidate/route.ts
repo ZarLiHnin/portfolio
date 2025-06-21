@@ -5,17 +5,27 @@ import { revalidatePath } from "next/cache";
 const secretToken = process.env.REVALIDATE_SECRET;
 
 export async function POST(req: NextRequest) {
+  const tokenFromQuery = req.nextUrl.searchParams.get("token");
+  let path = "";
+  let token = "";
+
   try {
-    const { path, token } = await req.json();
+    const json = await req.json().catch(() => ({}));
+    path = json.path;
+    token = json.token;
+  } catch {}
 
-    if (!token || token !== secretToken) {
-      return NextResponse.json({ message: "Invalid token" }, { status: 401 });
-    }
+  const tokenToCheck = token || tokenFromQuery;
 
-    if (!path) {
-      return NextResponse.json({ message: "Missing path" }, { status: 400 });
-    }
+  if (!tokenToCheck || tokenToCheck !== secretToken) {
+    return NextResponse.json({ message: "Invalid token" }, { status: 401 });
+  }
 
+  if (!path) {
+    return NextResponse.json({ message: "Missing path" }, { status: 400 });
+  }
+
+  try {
     revalidatePath(path);
     return NextResponse.json({ revalidated: true, path });
   } catch (err) {
