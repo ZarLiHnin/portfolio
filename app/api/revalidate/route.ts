@@ -4,20 +4,30 @@ import { revalidatePath } from "next/cache";
 
 const secretToken = process.env.REVALIDATE_SECRET;
 
+type RevalidateRequestBody = {
+  token?: string;
+  path?: string;
+};
+
 export async function POST(req: NextRequest) {
-  const tokenFromQuery = req.nextUrl.searchParams.get("token");
-  let path = "";
-  let token = "";
+  const query = req.nextUrl.searchParams;
+  const tokenFromQuery = query.get("token");
+  const pathFromQuery = query.get("path");
 
+  let body: RevalidateRequestBody = {};
   try {
-    const json = await req.json().catch(() => ({}));
-    path = json.path;
-    token = json.token;
-  } catch {}
+    const json = await req.json();
+    if (typeof json === "object" && json !== null) {
+      body = json;
+    }
+  } catch {
+    // JSON parsing failed, ignore
+  }
 
-  const tokenToCheck = token || tokenFromQuery;
+  const token = body.token ?? tokenFromQuery;
+  const path = body.path ?? pathFromQuery;
 
-  if (!tokenToCheck || tokenToCheck !== secretToken) {
+  if (!token || token !== secretToken) {
     return NextResponse.json({ message: "Invalid token" }, { status: 401 });
   }
 
