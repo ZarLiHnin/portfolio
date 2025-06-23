@@ -65,6 +65,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
   const work = await getWorkById(resolvedParams.id);
 
+  if (!work) {
+    return {
+      title: "Not Found",
+      description: "ページが見つかりませんでした。",
+    };
+  }
+
   return {
     title: work.title,
     description: work.description,
