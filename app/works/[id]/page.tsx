@@ -3,6 +3,7 @@ export const revalidate = 60;
 import { getAllWorks, getWorkById } from "@/lib/works";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -18,7 +19,8 @@ export default async function WorkDetailPage({ params }: Props) {
   const work = await getWorkById(resolvedParams.id);
 
   if (!work) {
-    notFound(); // 404ページへ
+    notFound(); // 4
+    // 04ページへ
   }
 
   return (
@@ -57,4 +59,32 @@ export default async function WorkDetailPage({ params }: Props) {
       </section>
     </main>
   );
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const resolvedParams = await params;
+  const work = await getWorkById(resolvedParams.id);
+
+  return {
+    title: work.title,
+    description: work.description,
+    openGraph: {
+      title: work.title,
+      description: work.description,
+      images: [
+        {
+          url: work.thumbnail?.url || "/images/default-ogp.png", // fallbackもOK
+          width: 1200,
+          height: 630,
+          alt: work.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: work.title,
+      description: work.description,
+      images: [work.thumbnail?.url || "/default-ogp.png"],
+    },
+  };
 }
