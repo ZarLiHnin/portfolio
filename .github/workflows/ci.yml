@@ -31,3 +31,7 @@ jobs:
       # 5. テストを実行
       - name: Run tests
         run: npm run test
+
+      # 6. ビルドを実行（テスト成功時のみ実行される）
+      - name: Run Build
+        run: npm run build
