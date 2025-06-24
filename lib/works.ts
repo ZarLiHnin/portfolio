@@ -5,6 +5,7 @@ export type Work = {
   id: string;
   title: string;
   description: string;
+  shortDescription: string;
   thumbnail: {
     url: string;
   };

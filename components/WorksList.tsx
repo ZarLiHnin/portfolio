@@ -8,6 +8,7 @@ type Work = {
   id: string;
   title: string;
   description: string;
+  shortDescription: string;
 };
 
 export default function WorksList({ works }: { works: Work[] }) {
@@ -27,6 +28,7 @@ export default function WorksList({ works }: { works: Work[] }) {
           <h2 className="text-xl font-semibold text-blue-700 mb-2">
             {work.title}
           </h2>
+          <p className="text-gray-700 mb-4 text-sm">{work.shortDescription}</p>
           <Link
             href={`/works/${work.id}`}
             className="text-yellow-500 hover:underline"
