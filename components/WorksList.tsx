@@ -31,7 +31,7 @@ export default function WorksList({ works }: { works: Work[] }) {
           <p className="text-gray-700 mb-4 text-sm">{work.shortDescription}</p>
           <Link
             href={`/works/${work.id}`}
-            className="text-yellow-500 hover:underline"
+            className="text-yellow-700 hover:text-yellow-500 underline"
           >
             詳細 →
           </Link>
