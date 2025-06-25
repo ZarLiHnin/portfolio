@@ -1,0 +1,10 @@
+{
+  "defaults": {
+    "standard": "WCAG2AA"
+  },
+  "urls": [
+    "https://zarliportfolio.vercel.app/",
+    "https://zarliportfolio.vercel.app/profile",
+    "https://zarliportfolio.vercel.app/works"
+  ]
+}
