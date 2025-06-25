@@ -36,7 +36,7 @@ export default function HeroSection() {
         transition={{ delay: 0.5, duration: 0.8 }}
       >
         <h1 className="text-2xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">
-          こんにちは、Zar Liです！
+          こんにちは、Zarliです！
         </h1>
         <p className="text-base md:text-2xl leading-relaxed drop-shadow-md mb-6 max-w-xl">
           フロントもバックもできる、魅力あるUIと技術を持つエンジニアです。
