@@ -20,6 +20,15 @@ jobs:
         with:
           node-version: "20"
 
+      # ✅ npm キャッシュ復元
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       # 3. npm install
       - name: Install dependencies
         run: npm install
@@ -37,6 +46,6 @@ jobs:
         run: npm run build
 
       #7. Deploy Vercel
-      # - name: Deploy to Vercel
-      #   if: success()
-      #   run: curl -X POST https://api.vercel.com/v1/integrations/deploy/prj_sTMpemBzsHYb5KrMnRv9PcWzpJbu/54F1ZloFE0
+      - name: Deploy to Vercel
+        if: success()
+        run: curl -X POST https://api.vercel.com/v1/integrations/deploy/prj_sTMpemBzsHYb5KrMnRv9PcWzpJbu/54F1ZloFE0
