@@ -35,3 +35,8 @@ jobs:
       # 6. ビルドを実行（テスト成功時のみ実行される）
       - name: Run Build
         run: npm run build
+
+      #7. Deploy Vercel
+      - name: Deploy to Vercel
+        if: success()
+        run: curl -X POST https://api.vercel.com/v1/integrations/deploy/prj_sTMpemBzsHYb5KrMnRv9PcWzpJbu/54F1ZloFE0
