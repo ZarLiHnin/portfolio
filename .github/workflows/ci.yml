@@ -42,8 +42,11 @@ jobs:
         run: npm run test
 
       # 6. ビルドを実行（テスト成功時のみ実行される）
-      - name: Run Build
+      - name: Build
         run: npm run build
+        env:
+          MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
+          MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
 
       #7. Deploy Vercel
       # - name: Deploy to Vercel
