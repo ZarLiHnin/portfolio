@@ -3,7 +3,7 @@ import { describe, it, expect } from "vitest";
 
 describe("Fail test", () => {
   it("adds correctly", () => {
-    expect(1 + 2).toBe(999); // わざとエラー
+    expect(3 + 2).toBe(5); // わざとエラー
   });
 });
 
