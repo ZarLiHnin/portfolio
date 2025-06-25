@@ -1,9 +1,16 @@
 // app/page.tsx
+import type { Metadata } from "next";
 import HeroSection from "@/components/HeroSection";
 import Link from "next/link";
 import WorksList from "@/components/WorksList";
 import { getAllWorks } from "@/lib/works";
 import { Mail, Phone, Facebook } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Zar Li Portfolio | ホーム",
+  description:
+    "Zar Liのポートフォリオサイト。開発実績やスキル情報を紹介しています。",
+};
 
 export default async function HomePage() {
   const works = await getAllWorks();
