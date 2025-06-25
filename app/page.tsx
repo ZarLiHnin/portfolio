@@ -22,7 +22,7 @@ export default async function HomePage() {
         <div className="mt-6 text-center">
           <Link
             href="/works"
-            className="text-yellow-600 underline text-lg font-medium hover:text-yellow-500 transition"
+            className="text-yellow-800 underline text-lg font-medium hover:text-yellow-600 transition"
           >
             全ての制作実績を見る →
           </Link>
