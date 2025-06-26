@@ -18,15 +18,21 @@ type Work = {
 
 export default function WorkDetailContent({ work }: { work: Work }) {
   return (
-    <motion.main className="max-w-4xl mx-auto px-6 py-12 space-y-12">
+    <motion.main
+      className="max-w-4xl mx-auto px-6 py-12 space-y-12"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       {/* ヒーローセクション */}
       <div className="relative h-72 rounded-lg overflow-hidden shadow-lg">
         <Image
           src={work.thumbnailUrl}
           alt={work.title}
-          fill
-          className="object-cover"
-          priority
+          width={800}
+          height={450}
+          className="object-cover w-full h-auto rounded-lg shadow-lg"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70" />
         <h1 className="absolute bottom-4 left-4 text-white text-4xl font-bold drop-shadow-lg">

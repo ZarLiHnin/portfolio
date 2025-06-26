@@ -1,6 +1,7 @@
 // components/WorksList.tsx
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -31,6 +32,7 @@ export default function WorksList({ works }: { works: Work[] }) {
           <p className="text-gray-700 mb-4 text-sm">{work.shortDescription}</p>
           <Link
             href={`/works/${work.id}`}
+            data-testid={`detail-link-${work.id}`}
             className="text-yellow-700 hover:text-yellow-500 underline"
           >
             詳細 →

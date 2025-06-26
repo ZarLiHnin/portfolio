@@ -58,7 +58,7 @@ export default async function HomePage() {
             className="flex items-center gap-2 text-yellow-800 hover:underline hover:text-yellow-600"
           >
             <Phone className="w-5 h-5" />
-            090-1234-5678
+            070-8456-8591
           </a>
 
           <a
