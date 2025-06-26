@@ -53,7 +53,7 @@ export default function ProfileCard() {
         <ProfileItem
           icon={<GlobeAltIcon className="w-5 h-5 text-blue-600" />}
           label="言語"
-          value="日本語（N1）、英語"
+          value="日本語（N1）、英語（日常会話）"
         />
         <ProfileItem
           icon={<GlobeAltIcon className="w-5 h-5 text-blue-600" />}
@@ -63,7 +63,7 @@ export default function ProfileCard() {
         <ProfileItem
           icon={<AcademicCapIcon className="w-5 h-5 text-blue-600" />}
           label="資格"
-          value="日本語能力試験N1、ITパスポートその他"
+          value="日本語能力試験N1、ITパスポート、その他"
         />
       </div>
     </div>
