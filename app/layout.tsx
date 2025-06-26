@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import WaveGradientBackground from "@/components/WaveGradientBackground";
 import MobileNav from "@/components/MobileNav"; // 追加
 import "./globals.css";
@@ -21,7 +22,10 @@ export default function RootLayout({
           <MobileNav />
         </header>
 
-        <main className="pt-16">{children}</main>
+        <main className="pt-16">
+          {children}
+          <Analytics /> {/* 👈 ページ下部などに設置 */}
+        </main>
       </body>
     </html>
   );
